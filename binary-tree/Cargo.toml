@@ -1,0 +1,5 @@
+[package]
+name = "binary-tree"
+version = "0.1.0"
+authors = ["Humboldt123 <nonemunhsiv@gmail.com>"]
+[dependencies]
