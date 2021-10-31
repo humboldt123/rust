@@ -18,7 +18,7 @@ Create a `Display` WindowBuilder, ContextBuilder, and a reference to the EventLo
 `
 
 ### Event Handler
-Call `.run()` on our `EventLoop` and pass an event handler like[`move`](https://doc.rust-lang.org/std/keyword.move.html) `|event, _, control_flow| {}`
+Call `.run()` on our `EventLoop` and pass an event handler like [`move |event, _, control_flow| {}`](https://doc.rust-lang.org/std/keyword.move.html)
 
 ## Shape
 - Create a `vec![]` and give it three Vertexes of our soon to be triangle
