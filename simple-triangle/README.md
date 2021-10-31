@@ -61,11 +61,11 @@ Since we don't want our window to instantly close lets make sure it doesn't unle
 
 ### Next Frame
 - Create an `Instant` and just assign it to `Instant::now()` plus ` Duration::from_nanos(16_666_667)`
-- Dereference (with `*`) our `control_flow` from earlier and set it equal to `ControlFlow::WaitUntil(`that `Instant` we just created `)`
+- Dereference (with `*`) our `control_flow` from earlier and set it equal to `ControlFlow::WaitUntil(`the instant we just made earlier`)`
 ### Match
 - Create a [`match`](https://doc.rust-lang.org/rust-by-example/flow_control/match.html) statement with `ev` from earlier
 - Our first arm should be `Event::WindowEvent { event, .. } => match event {}`
     - Our first arm in this inner match statement should be `WindowEvent::CloseRequested => {}`
         - in this block we can set a dereferenced `control_flow` equal to `ControlFlow::Exit` and `return`
-    -  And our last should be `_ => return,
+    -  And our last should be `_ => return,`
 - Our last arm should just be `_ => (),`
