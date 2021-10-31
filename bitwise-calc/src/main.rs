@@ -1,4 +1,4 @@
-/// Simple binary calculator in rust
+/// Simple bitwise calculator in rust
 /// Supports numbers upto 255
 
 

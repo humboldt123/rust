@@ -1,7 +1,7 @@
 [package]
-name = "binary-calc"
+name = "bitwise-calc"
 version = "0.1.0"
-authors = ["Humboldt123 <38266782+humboldt123@users.noreply.github.com>"]
+authors = ["Humboldt123 <skrub@skrub.dev>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
