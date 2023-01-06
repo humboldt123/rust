@@ -1,6 +1,8 @@
-# Drawing an Extremely Cool Triangle  
-This is an extremely simple program that literally just draws a triangle *with [glium](https://github.com/glium/glium/tree/master/book)*
-![Stylized Window](https://raw.githubusercontent.com/humboldt123/rust/main/simple-triangle/stylized-window.png)
+# Drawing an Extremely Cool Triangle 
+> **Created:** October 31st, 2021
+
+This is an extremely simple program that literally just draws a triangle *with [glium](https://glium.github.io/glium/book/)*
+![Stylized Window](./stylized-window.png)
 
 # Explanation
 ## Vertex Implementation
@@ -15,7 +17,6 @@ Create a `glutin::window::WindowBuilder` and a `glutin::ContextBuilder`
 
 ### Create the Display
 Create a `Display` WindowBuilder, ContextBuilder, and a reference to the EventLoop (use an `&` to indicate that its a reference) then call `.unwrap()` on it
-`
 
 ### Event Handler
 Call `.run()` on our `EventLoop` and pass an event handler like [`move |event, _, control_flow| {}`](https://doc.rust-lang.org/std/keyword.move.html)
