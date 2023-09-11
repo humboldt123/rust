@@ -28,20 +28,21 @@ fn main() {
     let mut letters_guessed: Vec<char> = Vec::with_capacity(26);
     let mut letters_revealed: Vec<char> = vec!['_'; word_length]; 
     let mut guesses_taken = 0;
+        
     populate_possible_words(&mut possible_words, word_length, "./dictionary.txt".to_string());
 
     println!("The target word is {} letters long.\n", word_length);
 
-    let mut running = true;
-    while running {
+    // Main game loop
+    loop {
         if !letters_revealed.contains(&'_') {
-            running = false;
             println!("\n\n\n{}\n\n", letters_revealed.iter().join(" "));
             match guesses_taken {
                 26 => println!("Congratulations! You tried each letter in the alphabet until you got the word."),
                 25 => println!("Congratulations! You tried almost every letter, but you eventually got there."),
                 _ => println!("Congratulations! You guessed the word in {} guesses.", guesses_taken),
             }
+            break;
         } else {
             println!("\n\n\n{}\n\nGUESS A LETTER\n", letters_revealed.iter().join(" "));
 
@@ -68,6 +69,8 @@ fn main() {
         }
     }
 }
+
+/// Add each word in the dictionary of word_length the list of possible words
 fn populate_possible_words(possible_words: &mut Vec<String>, word_length: usize, dictionary_path: String) {
     let dictionary = File::open(dictionary_path).unwrap();
     let dictionary_reader = BufReader::new(dictionary);
@@ -79,6 +82,11 @@ fn populate_possible_words(possible_words: &mut Vec<String>, word_length: usize,
     }
 }
 
+/// Set the list of possible words to the largest group of words with regard to the users guess
+///
+/// For example, if the list of possible words is ["ate", "ape", "all", "pin"] and the user
+/// guesses 'a', the new list of possible words becomes ["ate", "ape", "all"] because there are
+/// more words in the "a__" word family than the "___" word family.
 fn trim_possible_words(possible_words: &mut Vec<String>, guess: char, letters_revealed: &mut Vec<char>) {
     // Create a hashmap of word groups
     let mut word_groups: HashMap<String, Vec<String>> = HashMap::new();
@@ -113,6 +121,10 @@ fn trim_possible_words(possible_words: &mut Vec<String>, guess: char, letters_re
     }
 }
 
+/// Get the "word family" of a particular word with regard to a letter guess
+///
+/// For example; the word "apple" with the guess 'a' would return "a____", whereas
+/// the word "banana" with the guess 'a' would return "_a_a_a".
 fn get_string_group(word: String, letter: char) -> String {
     word.chars().map(|c| if c == letter { c } else { '_' }).collect::<String>()
 }
