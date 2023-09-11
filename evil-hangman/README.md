@@ -1,7 +1,7 @@
 ## Evil Hangman
 > **Created:** September 11th, 2023
 
-Evil Hangman is a game where the computer —instead of picking pick a word— maintains a list of all possible words. When the user guesses a letter, the computer cheats by narrowing down it's  list to words that don't contain that letter until the user runs out of guesses! 🦀
+Evil Hangman is a game where the computer —instead of picking pick a word— maintains a list of all possible words. When the user guesses a letter, the computer cheats by narrowing down it's list to words that try to evade that letter! 🦀
 
 ### Credits
 - Inspired by [Keith Schwarz's Evil Hangman Assignment](http://nifty.stanford.edu/2011/schwarz-evil-hangman/)
