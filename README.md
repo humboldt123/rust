@@ -3,6 +3,7 @@ This repository contains a by no means comprehensive list of projects I made whi
 
 | Project                               | Description                                       | Date                  |
 |---------------------------------------|---------------------------------------------------|-----------------------|
+| [hello-rust](./hello-rust/)           | Hello world in Rust, powered by NodeJS!           | September 23rd, 2020  |
 | [binary-tree](./binary-tree/)         | Creates and inverts a simple binary tree in rust! | October 28th, 2020    |
 | [bitwise-calc](./bitwise-calc/)       | Add and subtract numbers up to 256                | November 11th, 2020   |
 | [simple-triangle](./simple-triangle/) | Renders a triangle                                | October 31st, 2021    |
