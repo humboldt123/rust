@@ -1,14 +1,14 @@
-extern crate itertools;
-
 use std::io;
 use std::io::{BufRead, BufReader};
 use std::fs::File;
 use std::collections::HashMap;
+
 use rand::Rng;
 use itertools::Itertools;
-  
+use inline_colorization::*;
+
 fn main() {
-    let title = r###"
+    let title = format!(r###"
      ______     _ _   _    _                                         
     |  ____|   (_) | | |  | |                                        
     | |____   ___| | | |__| | __ _ _ __   __ _ _ __ ___   __ _ _ __  
@@ -17,7 +17,7 @@ fn main() {
     |______\_/ |_|_| |_|  |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
                                           __/ |                      
                                          |___/                       
-                                                  Made in Rust with <3"###;
+                                                  Made with {color_red}<3{color_reset} in Rust"###);
     println!("{}\n", title);
 
     let mut rng = rand::thread_rng();
@@ -38,18 +38,23 @@ fn main() {
         if !letters_revealed.contains(&'_') {
             println!("\n\n\n{}\n\n", letters_revealed.iter().join(" "));
             match guesses_taken {
-                26 => println!("Congratulations! You tried each letter in the alphabet until you got the word."),
-                25 => println!("Congratulations! You tried almost every letter, but you eventually got there."),
-                _ => println!("Congratulations! You guessed the word in {} guesses.", guesses_taken),
+                26 => println!("Congratulations! You guessed every single letter of the alphabet until you got to the word. (26 guesses)"),
+                20..=25 => println!("Congratulations! You almost guessed every single letter, but you got there. ({} guesses)", guesses_taken),
+                16..=19 => println!("Nice! You guessed the word in under {} guesses, thats a sub-20!", guesses_taken),
+                10..=15 => println!("Impressive! You guessed the word in under {} guesses! That's really {color_magenta}spectacular!{color_reset}", guesses_taken),
+                _ => println!("Very impressive! You guessed the word in {} guesses. That's in the single digits!", guesses_taken),
             }
             break;
         } else {
-            println!("\n\n\n{}\n\nGUESS A LETTER\n", letters_revealed.iter().join(" "));
-
+            println!("\n\n{}\nGUESS A LETTER\n", letters_revealed.iter().join(" "));
+            
             let mut input = String::new();
             io::stdin().read_line(&mut input).expect("Failed to readline.");
             let guess = input.trim().to_lowercase();
-            
+            // clear user input from the terminal
+            print!("\x1B[1A\x1B[2K");
+
+
             if guess.chars().all(|c| matches!(c, 'a'..='z')) {
                 if guess.len() == 1 {
                     let letter = guess.chars().nth(0).unwrap();
@@ -58,7 +63,8 @@ fn main() {
                         trim_possible_words(&mut possible_words, letter, &mut letters_revealed);
                         guesses_taken += 1;
                     } else {
-                        println!("You've already guessed {}", letter.to_uppercase());
+                        println!("You've already guessed {color_magenta}{}{color_reset}", letter.to_uppercase());
+                        println!("\n{color_yellow}Hint!{color_reset} You can guess the following letters:\n{}", ('a'..='z').collect::<Vec<char>>().iter().filter(|letter| !letters_guessed.contains(letter)).join(" ").to_uppercase())
                     }
                 } else {
                     println!("You must guess one letter");
@@ -66,6 +72,7 @@ fn main() {
             } else {
                 println!("Your guess must be a letter");
             }
+            println!("------------------------------------------------");
         }
     }
 }
@@ -102,7 +109,7 @@ fn trim_possible_words(possible_words: &mut Vec<String>, guess: char, letters_re
     *possible_words = word_list.clone();
     
     if !biggest_group.contains(guess) {
-        println!("Sorry! The target word does NOT contain an {}", guess.to_uppercase());
+        println!("Sorry! The target word does NOT contain an {color_magenta}{}{color_reset}", guess.to_uppercase());
     } else {
         // Add each instance of the letter to our letters revealed
         let mut appearances = 0;
@@ -113,7 +120,7 @@ fn trim_possible_words(possible_words: &mut Vec<String>, guess: char, letters_re
             }
         }
         println!(
-            "Nice! The target word contains {}{}{}!",
+            "Nice! The target word contains {}{color_yellow}{}{color_reset}{}!",
             if appearances == 1 {"an ".to_string()} else {"".to_string()},
             guess.to_uppercase(),
             if appearances == 1 {"".to_string()} else {format!(" {} times", appearances)}
