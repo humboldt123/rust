@@ -40,8 +40,8 @@ fn main() {
             match guesses_taken {
                 26 => println!("Congratulations! You guessed every single letter of the alphabet until you got to the word. (26 guesses)"),
                 20..=25 => println!("Congratulations! You almost guessed every single letter, but you got there. ({} guesses)", guesses_taken),
-                16..=19 => println!("Nice! You guessed the word in under {} guesses, thats a sub-20!", guesses_taken),
-                10..=15 => println!("Impressive! You guessed the word in under {} guesses! That's really {color_magenta}spectacular!{color_reset}", guesses_taken),
+                16..=19 => println!("Nice! You guessed the word in under 20 guesses! ({} guesses)", guesses_taken),
+                10..=15 => println!("Impressive! You guessed the word in {} guesses! That's really {color_magenta}spectacular!{color_reset}", guesses_taken),
                 _ => println!("Very impressive! You guessed the word in {} guesses. That's in the single digits!", guesses_taken),
             }
             break;
